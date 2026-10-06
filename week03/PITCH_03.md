@@ -66,24 +66,28 @@ It does not: It does not process  transactions for private tutoring services or 
 
 ## 4. The main screen
 
-<!-- Draw it. On paper, photograph it, put the image in week03/ and link it
-     here — or draw it with text boxes below. Not a tool mock-up, not AI: your
-     hand, five minutes. The phone frame is 390 px wide (REQ-006).
-     Çizin. Kâğıda çizip fotoğraflayın, görseli week03/ içine koyup buraya
-     bağlayın — ya da aşağıya metin kutularıyla çizin. Araç taslağı değil,
-     yapay zekâ değil: kendi eliniz, beş dakika. Telefon çerçevesi 390 px (REQ-006). -->
-
-![main screen](week03/screen.jpg)
-
-<!-- or / ya da:
-+----------------------------+
-|  [title bar]               |
-|  [what the user sees first]|
-|  [the one button]          |
-+----------------------------+
--->
-
----
++--------------------------------------+
+| 🎓 UniPlatform       [ Search ]   |
++--------------------------------------+
+| [ All Topics ] [ Notes ] [ Peer Help]|
++--------------------------------------+
+| TRENDING TOPICS                      |
+| 📌 # CS301 - Operating Systems       |
+|    "Shared midterm summary notes!"   |
+|    👤 Ahmet D. • 💬 14 replies       |
+|                                      |
+| 📌 # Summer Internships 2026         |
+|    "Tips for B2B full-stack roles"   |
+|    👤 Zeynep K. • 💬 28 replies      |
++--------------------------------------+
+| PEER HELP AVAILABLE                  |
+| Mehmet Y. — Database Systems (A+) |
+|    [ Contact Mentor ]                |
++--------------------------------------+
+|        [ + Create New Post ]         |
++--------------------------------------+
+| 🏠 Home   📚 Courses   💬 Help   👤  |
++--------------------------------------+
 
 ## 5. What I am not sure about
 
