@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create a Post | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-002, REQ-006, REQ-008 -->
+<main class="phone">
+  <a href="home.html">← Back to home</a>
+  <h1>Create a discussion</h1>
+  <p class="muted">Ask a question or share something useful with other students.</p>
+
+  <form action="post.html">
+    <label for="title">Post title</label>
+    <input id="title" name="title" required maxlength="100"
+           placeholder="What would you like to discuss?">
+
+    <label for="category">Category</label>
+    <select id="category" name="category" required>
+      <option value="">Choose a category</option>
+      <option>Computer Science</option>
+      <option>Study Resources</option>
+      <option>Internships</option>
+      <option>Campus Life</option>
+    </select>
+
+    <label for="body">Your post</label>
+    <textarea id="body" name="body" required rows="6"
+              placeholder="Write your question or discussion..."></textarea>
+
+    <p class="note">This prototype does not permanently save posts.</p>
+    <button class="button" type="submit">Preview post</button>
+  </form>
+
+  <nav class="tabs">
+    <a href="home.html">Home</a>
+    <a href="resources.html">Resources</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</main>
+</body>
+</html>

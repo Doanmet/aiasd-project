@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Resources | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-004, REQ-006, REQ-007 -->
+<main class="phone">
+  <a href="home.html">← Back to home</a>
+  <h1>Study resources</h1>
+  <p class="muted">Find notes and materials shared by students.</p>
+
+  <label for="resource-search">Search resources</label>
+  <input id="resource-search" type="search"
+         placeholder="Search by title or subject">
+
+  <p id="empty-message" class="error hidden">No matching resources found. Try another search.</p>
+
+  <section id="resource-list">
+    <article class="card resource">
+      <span class="tag">Database Systems</span>
+      <h3>Database Systems — Revision Notes</h3>
+      <p class="muted">Summary of keys, normalization and relationships.</p>
+      <p class="meta">Shared by Deniz K.</p>
+      <a href="post.html">Discuss this resource →</a>
+    </article>
+
+    <article class="card resource">
+      <span class="tag">Programming</span>
+      <h3>Java OOP Exam Summary</h3>
+      <p class="muted">Classes, inheritance, interfaces and polymorphism.</p>
+      <p class="meta">Shared by Emir M.</p>
+      <a href="post.html">Discuss this resource →</a>
+    </article>
+
+    <article class="card resource">
+      <span class="tag">Algorithms</span>
+      <h3>Sorting Algorithms Cheat Sheet</h3>
+      <p class="muted">A quick comparison of common sorting algorithms.</p>
+      <p class="meta">Shared by Esra B.</p>
+      <a href="post.html">Discuss this resource →</a>
+    </article>
+  </section>
+
+  <nav class="tabs">
+    <a href="home.html">Home</a>
+    <a href="resources.html" aria-current="page">Resources</a>
+    <a href="create-post.html">Create</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</main>
+
+<script>
+  const search = document.getElementById("resource-search");
+  const cards = document.querySelectorAll(".resource");
+  const emptyMessage = document.getElementById("empty-message");
+
+  search.addEventListener("input", function () {
+    const query = search.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    cards.forEach(function (card) {
+      const matches = card.textContent.toLowerCase().includes(query);
+      card.classList.toggle("hidden", !matches);
+      if (matches) visibleCount++;
+    });
+
+    emptyMessage.classList.toggle("hidden", visibleCount > 0);
+  });
+</script>
+</body>
+</html>

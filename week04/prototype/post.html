@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discussion | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-003, REQ-006, REQ-008 -->
+<main class="phone">
+  <a href="home.html">← Back to discussions</a>
+  <span class="tag">Computer Science</span>
+  <h1>How are you preparing for the DBMS exam?</h1>
+  <p class="meta">Deniz K. · 2 days ago</p>
+
+  <article class="card">
+    <p>I'm reviewing normalization and SQL queries. Which topics should I focus on before the exam?</p>
+  </article>
+
+  <section>
+    <h2>Replies (2)</h2>
+    <article class="card">
+      <h3>Emir M.</h3>
+      <p>Practice joins, functional dependencies and normal forms. Solving past questions helped me.</p>
+    </article>
+    <article class="card">
+      <h3>Esra B.</h3>
+      <p>Don't skip transactions and indexing. Make a short summary of each topic.</p>
+    </article>
+  </section>
+
+  <form action="post.html">
+    <label for="reply">Write a reply</label>
+    <textarea id="reply" name="reply" rows="3" required
+              placeholder="Share your thoughts..."></textarea>
+    <p class="note">Demo only: replies are not permanently saved.</p>
+    <button class="button" type="submit">Preview reply</button>
+  </form>
+
+  <nav class="tabs">
+    <a href="home.html">Home</a>
+    <a href="resources.html">Resources</a>
+    <a href="create-post.html">Create</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</main>
+</body>
+</html>

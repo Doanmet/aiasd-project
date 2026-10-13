@@ -1,19 +1,72 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WikiCampus | Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- serves: [the REQ ids that this screen serves] -->
+<!-- serves: REQ-002, REQ-004, REQ-005, REQ-006 -->
 <main class="phone">
-  <h1>[Home screen]</h1>
-  <p>[What the user sees first after logging in. Replace this screen with your own, and link it to the screens of your main flow.]</p>
-  <nav class="tabs">
-    <a href="home.html">Home</a>
-    <a href="index.html">Log out</a>
+  <header class="brand">
+    <a class="brand-name" href="home.html">WikiCampus</a>
+    <a class="avatar" href="profile.html" aria-label="My profile">AD</a>
+  </header>
+
+  <h1>Campus, connected.</h1>
+  <p class="muted">Learn together. Share what you know.</p>
+
+  <form action="resources.html">
+    <label for="search">Find a topic or resource</label>
+    <input id="search" name="q" type="search" placeholder="Try Database Systems">
+    <button class="button" type="submit">Search resources</button>
+  </form>
+
+  <section>
+    <div class="section-heading">
+      <h2>Trending discussions</h2>
+      <a href="create-post.html">+ New post</a>
+    </div>
+
+    <article class="card">
+      <span class="tag">Computer Science</span>
+      <h3><a href="post.html">How are you preparing for the DBMS exam?</a></h3>
+      <p class="muted">Study tips, normalization and practice questions.</p>
+      <p class="meta">Deniz K. · 12 replies</p>
+    </article>
+
+    <article class="card">
+      <span class="tag">Campus Life</span>
+      <h3><a href="post.html">Best places to study on campus</a></h3>
+      <p class="muted">Share quiet places with good Wi-Fi.</p>
+      <p class="meta">Mert A. · 8 replies</p>
+    </article>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>Study resources</h2>
+      <a href="resources.html">View all</a>
+    </div>
+    <article class="card">
+      <h3>Database Systems — Revision Notes</h3>
+      <p class="muted">Summary notes · Database Systems</p>
+      <a href="resources.html">Browse resources →</a>
+    </article>
+  </section>
+
+  <section class="card">
+    <h2>Need academic help?</h2>
+    <p class="muted">Find students who can help with a subject.</p>
+    <a href="profile.html">Explore student profiles →</a>
+  </section>
+
+  <nav class="tabs" aria-label="Main navigation">
+    <a href="home.html" aria-current="page">Home</a>
+    <a href="resources.html">Resources</a>
+    <a href="create-post.html">Create</a>
+    <a href="profile.html">Profile</a>
   </nav>
 </main>
 </body>
