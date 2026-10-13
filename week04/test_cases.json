@@ -11,49 +11,101 @@
     "The three test cases below belong to the two requirements that everyone shares, REQ-001 and REQ-006. Keep them and adjust the wording to your screens. If your phone-screen requirement has another id, change the id and the req of TC-006-01 to match it (REQ-007 gives TC-007-01). Replace the fourth one with your own, and add as many as you need.",
     "You may delete this block once you have read it; the checker ignores it."
   ],
-  "project": "the title from PROPOSAL.md §1",
+  "project": "WikiCampus",
   "test_cases": [
     {
       "id": "TC-001-01",
       "req": "REQ-001",
-      "title": "Log in with the code from the e-mail",
-      "precondition": "none",
+      "title": "Log in with the correct verification code",
+      "precondition": "The prototype is open in a browser.",
       "steps": [
-        "Open the app",
-        "Enter deniz@example.com and tap Send code",
-        "Enter the 4-digit code from the e-mail and tap Log in"
+        "Open index.html.",
+        "Enter student@example.com in the e-mail field.",
+        "Click Send code.",
+        "Enter 1234 on the code screen.",
+        "Click Log in."
       ],
-      "expected": "The home screen opens. No screen asks for a password."
+      "expected": "The home screen opens and no password is requested."
     },
     {
       "id": "TC-001-02",
       "req": "REQ-001",
-      "title": "A wrong code is refused",
-      "precondition": "A code has been sent to deniz@example.com",
+      "title": "A wrong verification code is refused",
+      "precondition": "The code screen is open.",
       "steps": [
-        "On the code screen, enter 0000 (a code that was not sent) and tap Log in"
+        "Enter 0000 in the code field.",
+        "Click Log in."
       ],
-      "expected": "The message 'Wrong code' appears; the user stays on the code screen and can try again."
-    },
-    {
-      "id": "TC-006-01",
-      "req": "REQ-006",
-      "title": "Every screen fits a phone 390 px wide",
-      "precondition": "The browser's phone view is set to 390 px wide, or the app is open on a phone",
-      "steps": [
-        "Open every screen of the app, one after the other"
-      ],
-      "expected": "No screen has a horizontal scroll bar, no text is cut off, and every button can be reached."
+      "expected": "A wrong-code error message appears and the user remains on the code screen."
     },
     {
       "id": "TC-002-01",
       "req": "REQ-002",
-      "title": "…",
-      "precondition": "…",
+      "title": "Create a discussion post",
+      "precondition": "The create-post screen is open.",
       "steps": [
-        "…"
+        "Enter 'Database Systems Exam' in the title field.",
+        "Select an available category.",
+        "Enter 'Does anyone have revision notes for the exam?' in the post content field.",
+        "Submit the form."
       ],
-      "expected": "…"
+      "expected": "The browser navigates to post.html, as specified by the prototype form."
+    },
+    {
+      "id": "TC-002-02",
+      "req": "REQ-002",
+      "title": "A post cannot be submitted with an empty required field",
+      "precondition": "The create-post screen is open.",
+      "steps": [
+        "Leave the title field empty.",
+        "Select a category and enter some post content.",
+        "Submit the form."
+      ],
+      "expected": "The browser's required-field validation prevents submission and keeps the user on the create-post screen."
+    },
+    {
+      "id": "TC-003-01",
+      "req": "REQ-003",
+      "title": "View a discussion and its replies",
+      "precondition": "The home screen is open.",
+      "steps": [
+        "Open the sample Database Systems discussion.",
+        "Read the discussion content and displayed replies."
+      ],
+      "expected": "The discussion page displays the sample post and its existing replies."
+    },
+    {
+      "id": "TC-004-01",
+      "req": "REQ-004",
+      "title": "Search for an available study resource",
+      "precondition": "The resources screen is open.",
+      "steps": [
+        "Enter 'Java' in the resource search field.",
+        "Observe the resource cards."
+      ],
+      "expected": "The Java OOP resource remains visible and resources that do not match the search are filtered out."
+    },
+    {
+      "id": "TC-007-01",
+      "req": "REQ-007",
+      "title": "Display a message when no resources match",
+      "precondition": "The resources screen is open.",
+      "steps": [
+        "Enter 'xyz-no-match-123' in the resource search field.",
+        "Observe the results area."
+      ],
+      "expected": "No resource cards remain visible and the no-results message is displayed."
+    },
+    {
+      "id": "TC-005-01",
+      "req": "REQ-005",
+      "title": "View a student profile",
+      "precondition": "The home screen is open.",
+      "steps": [
+        "Open the profile screen.",
+        "Inspect the displayed profile information."
+      ],
+      "expected": "The profile screen displays the sample student's courses, skills, and areas of expertise."
     }
   ]
 }

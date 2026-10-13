@@ -12,9 +12,13 @@
   ],
   "week": 4,
   "runs": [
-    { "tc": "", "tester": "", "round": 1, "result": "", "note": "" },
-    { "tc": "", "tester": "", "round": 1, "result": "", "note": "" },
-    { "tc": "", "tester": "", "round": 1, "result": "", "note": "" },
-    { "tc": "", "tester": "", "round": 1, "result": "", "note": "" }
+    { "tc": "TC-001-01", "tester": "220504003", "round": 1, "result": "pass", "note": "works fine but works with every e-mail." },
+    { "tc": "TC-001-02", "tester": "220504003", "round": 1, "result": "pass", "note": "doesnt open the main page without correct verification code." },
+    { "tc": "TC-002-01", "tester": "220504003", "round": 1, "result": "pass", "note": "works fine but in the future the created post should be added to the poast.html." },
+    { "tc": "TC-002-02", "tester": "220504003", "round": 1, "result": "pass", "note": "without filling the all parts it dosnt let you create a post." },
+    { "tc": "TC-003-01", "tester": "220504003", "round": 1, "result": "pass", "note": "the test case works but every discussion on the home.html opens the same page this can be work for prototype but should be corrected in the future." },
+    { "tc": "TC-004-01", "tester": "220504003", "round": 1, "result": "pass", "note": "search bar works with 'java' and other texts." },
+    { "tc": "TC-007-01", "tester": "220504003", "round": 1, "result": "pass", "note": "when search bar could not find the text it displays 'No matching resources found. Try another search.'" },
+    { "tc": "TC-005-01", "tester": "220504003", "round": 1, "result": "pass", "note": "user's courses, skills, and interests can be seen by profile.html page." }
   ]
 }
