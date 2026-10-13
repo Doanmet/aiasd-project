@@ -11,6 +11,6 @@
   ],
   "week": 4,
   "members": [
-    { "student_id": "", "role": "collaborator", "what": "", "accepted": null, "why": "" }
+    { "student_id": "220504003", "role": "collaborator", "what": "the test case passes but every discussion on the home.html opens the same page this can be work for prototype but should be corrected in the future.", "accepted": true, "why": "every article int the main page opens the same page. this needs to be changenged in the future." }
   ]
 }
