@@ -1,111 +1,20 @@
 {
-  "_how_to_fill_this_in": [
-    "One object per test case. A test case is one acceptance criterion from week02/requirements.json, turned into steps that anyone can follow and a result that anyone can check.",
-    "id: TC-NNN-NN. NNN is the number of the requirement it tests, and NN counts the test cases of that requirement: TC-004-01 and TC-004-02 both test REQ-004. As with the REQ ids, a test case id never changes its meaning. A test case you drop keeps its id and gets \"dropped\": true.",
-    "req: the REQ id it tests, exactly as in week02/requirements.json. One requirement per test case.",
-    "title: what is tested, in a few words, such as 'A wrong code is refused'.",
-    "precondition: what must be true before the first step, such as 'A code has been sent to deniz@example.com'. Write 'none' if nothing is needed.",
-    "steps: what the tester does, one action per line, with the real values to type: 'Enter deniz@example.com and tap Send code'. Someone who has never seen your project must be able to follow them.",
-    "expected: what the tester must see at the end, in one full sentence: a screen, a message, a number. Not 'it works', but 'The home screen opens and shows the three free rooms'.",
-    "Every must requirement has at least one test case. For at least three requirements, write a second test case for what happens when something goes wrong: a wrong code, an empty field, a slot that is already taken.",
-    "The three test cases below belong to the two requirements that everyone shares, REQ-001 and REQ-006. Keep them and adjust the wording to your screens. If your phone-screen requirement has another id, change the id and the req of TC-006-01 to match it (REQ-007 gives TC-007-01). Replace the fourth one with your own, and add as many as you need.",
-    "You may delete this block once you have read it; the checker ignores it."
-  ],
   "project": "WikiCampus",
   "test_cases": [
-    {
-      "id": "TC-001-01",
-      "req": "REQ-001",
-      "title": "Log in with the correct verification code",
-      "precondition": "The prototype is open in a browser.",
-      "steps": [
-        "Open index.html.",
-        "Enter student@example.com in the e-mail field.",
-        "Click Send code.",
-        "Enter 1234 on the code screen.",
-        "Click Log in."
-      ],
-      "expected": "The home screen opens and no password is requested."
-    },
-    {
-      "id": "TC-001-02",
-      "req": "REQ-001",
-      "title": "A wrong verification code is refused",
-      "precondition": "The code screen is open.",
-      "steps": [
-        "Enter 0000 in the code field.",
-        "Click Log in."
-      ],
-      "expected": "A wrong-code error message appears and the user remains on the code screen."
-    },
-    {
-      "id": "TC-002-01",
-      "req": "REQ-002",
-      "title": "Create a discussion post",
-      "precondition": "The create-post screen is open.",
-      "steps": [
-        "Enter 'Database Systems Exam' in the title field.",
-        "Select an available category.",
-        "Enter 'Does anyone have revision notes for the exam?' in the post content field.",
-        "Submit the form."
-      ],
-      "expected": "The browser navigates to post.html, as specified by the prototype form."
-    },
-    {
-      "id": "TC-002-02",
-      "req": "REQ-002",
-      "title": "A post cannot be submitted with an empty required field",
-      "precondition": "The create-post screen is open.",
-      "steps": [
-        "Leave the title field empty.",
-        "Select a category and enter some post content.",
-        "Submit the form."
-      ],
-      "expected": "The browser's required-field validation prevents submission and keeps the user on the create-post screen."
-    },
-    {
-      "id": "TC-003-01",
-      "req": "REQ-003",
-      "title": "View a discussion and its replies",
-      "precondition": "The home screen is open.",
-      "steps": [
-        "Open the sample Database Systems discussion.",
-        "Read the discussion content and displayed replies."
-      ],
-      "expected": "The discussion page displays the sample post and its existing replies."
-    },
-    {
-      "id": "TC-004-01",
-      "req": "REQ-004",
-      "title": "Search for an available study resource",
-      "precondition": "The resources screen is open.",
-      "steps": [
-        "Enter 'Java' in the resource search field.",
-        "Observe the resource cards."
-      ],
-      "expected": "The Java OOP resource remains visible and resources that do not match the search are filtered out."
-    },
-    {
-      "id": "TC-007-01",
-      "req": "REQ-007",
-      "title": "Display a message when no resources match",
-      "precondition": "The resources screen is open.",
-      "steps": [
-        "Enter 'xyz-no-match-123' in the resource search field.",
-        "Observe the results area."
-      ],
-      "expected": "No resource cards remain visible and the no-results message is displayed."
-    },
-    {
-      "id": "TC-005-01",
-      "req": "REQ-005",
-      "title": "View a student profile",
-      "precondition": "The home screen is open.",
-      "steps": [
-        "Open the profile screen.",
-        "Inspect the displayed profile information."
-      ],
-      "expected": "The profile screen displays the sample student's courses, skills, and areas of expertise."
-    }
+    {"id":"TC-001-01","req":"REQ-001","title":"Request a login code","precondition":"The login screen is open.","steps":["Enter student@example.com and choose Send code."],"expected":"A confirmation says that a four-digit code was sent."},
+    {"id":"TC-001-02","req":"REQ-001","title":"A wrong code is rejected","precondition":"The code screen is open.","steps":["Enter 0000 and choose Log in."],"expected":"The server rejects the code and the user stays signed out."},
+    {"id":"TC-001-03","req":"REQ-001","title":"An expired code is rejected","precondition":"A code was sent more than ten minutes ago.","steps":["Enter the expired code and choose Log in."],"expected":"The server rejects the expired code and the user stays signed out."},
+    {"id":"TC-001-04","req":"REQ-001","title":"A second code request is rate limited","precondition":"A code was requested less than 60 seconds ago.","steps":["Request another code for the same address."],"expected":"The server says to wait and does not send a second code."},
+    {"id":"TC-002-01","req":"REQ-002","title":"Create a discussion post","precondition":"The create-post screen is open.","steps":["Enter a title and message.","Choose a course category.","Submit the post."],"expected":"The post is created and appears in the discussion list."},
+    {"id":"TC-002-02","req":"REQ-002","title":"A post with a required field missing is rejected","precondition":"The create-post screen is open.","steps":["Leave the title empty.","Enter a category and message.","Submit the post."],"expected":"The post is not created and a required-field message appears."},
+    {"id":"TC-003-01","req":"REQ-003","title":"Read a discussion and its replies","precondition":"The home screen shows the sample Database Systems post.","steps":["Open the Database Systems discussion.","Read its message and replies."],"expected":"The discussion page shows the selected post and its replies."},
+    {"id":"TC-003-02","req":"REQ-003","title":"An unknown discussion is not found","precondition":"The home screen is open.","steps":["Open a post that does not exist."],"expected":"A clear not-found message appears."},
+    {"id":"TC-004-01","req":"REQ-004","title":"Find a resource by keyword","precondition":"The resources screen is open.","steps":["Search for Java.","Review the resource cards."],"expected":"Java OOP resources remain visible and unrelated resources are filtered out."},
+    {"id":"TC-007-01","req":"REQ-007","title":"Show a message when no resources match","precondition":"The resources screen is open.","steps":["Search for xyz-no-match-123.","Review the results area."],"expected":"No resource cards are shown and a no-results message appears."},
+    {"id":"TC-005-01","req":"REQ-005","title":"View a student profile","precondition":"The home screen is open.","steps":["Open the sample student's profile.","Review the courses and interests."],"expected":"The profile shows the sample student's courses and study interests."},
+    {"id":"TC-006-01","req":"REQ-006","title":"Use the main screens on a phone","precondition":"The prototype is open in a browser with phone view enabled.","steps":["Set the viewport to 390 pixels wide.","Open each main screen and use its controls."],"expected":"No horizontal scrolling or cut-off text appears and each control can be reached."},
+    {"id":"TC-009-01","req":"REQ-009","title":"Create and join a study group","precondition":"The student is signed in.","steps":["Create a Database Systems study group.","Find it in the group list.","Join the group."],"expected":"The new study group appears in the list and the student becomes a member."},
+    {"id":"TC-010-01","req":"REQ-010","title":"Send a message to a study group","precondition":"The student is a member of the Database Systems group.","steps":["Send the message 'I found a useful review sheet.'"],"expected":"The message appears in the group's message list."},
+    {"id":"TC-011-01","req":"REQ-011","title":"The login code is not shown in a response","precondition":"A login code was requested.","steps":["Inspect the code-request response and application log."],"expected":"The four-digit code appears in neither the response nor the log."}
   ]
 }

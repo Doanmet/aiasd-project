@@ -1,25 +1,93 @@
-"""
-server/main.py: the server of your project (FastAPI).
-AIASD · Atlas University · Fall 2026-27 · Week 5
+"""FastAPI skeleton for WikiCampus; feature routes are built in later weeks."""
 
-Run it from the root of your repository:
+from fastapi import FastAPI, HTTPException, Query
+from pydantic import BaseModel
 
-    uvicorn server.main:app --reload
+app = FastAPI(title="WikiCampus")
 
-then open http://127.0.0.1:8000/docs in the browser: FastAPI lists every endpoint there,
-and you can try each one. Stop the server with Ctrl+C.
 
-The rule of this file: every endpoint here is a row of week05/api.md, with the same method
-and the same path, and every row of week05/api.md is an endpoint here. The checker
-compares the two.
-"""
+class EmailCodeRequest(BaseModel):
+    email: str
 
-from fastapi import FastAPI
 
-app = FastAPI(title="My project")  # TODO: the name of your project
+class LoginRequest(BaseModel):
+    email: str
+    code: str
+
+
+class PostRequest(BaseModel):
+    title: str
+    category: str
+    content: str
 
 
 @app.get("/health")
 def health() -> dict:
-    """The server is running. A technical endpoint: it serves no requirement."""
+    """Technical check that the server is running."""
     return {"status": "ok"}
+
+
+@app.post("/auth/code")
+def request_login_code(body: EmailCodeRequest) -> None:
+    """REQ-001: send a one-time email code; implementation comes in Week 6."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 6")
+
+
+@app.post("/auth/login")
+def login(body: LoginRequest) -> None:
+    """REQ-001: verify the one-time code; implementation comes in Week 6."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 6")
+
+
+@app.post("/posts")
+def create_post(body: PostRequest) -> None:
+    """REQ-002: create a categorized course discussion; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.get("/posts/{post_id}")
+def get_post(post_id: int) -> None:
+    """REQ-003: show a discussion and its replies; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.get("/resources")
+def search_resources(q: str = Query(..., min_length=1)) -> None:
+    """REQ-004, REQ-007: search study resources; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.get("/profiles/{student_id}")
+def get_profile(student_id: str) -> None:
+    """REQ-005: show a student profile; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.get("/groups")
+def list_groups() -> None:
+    """REQ-009: list course study groups; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.post("/groups")
+def create_group() -> None:
+    """REQ-009: create a course study group; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.post("/groups/{group_id}/members")
+def join_group(group_id: int) -> None:
+    """REQ-009: join a study group; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.get("/groups/{group_id}/messages")
+def list_group_messages(group_id: int) -> None:
+    """REQ-010: read group messages; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+@app.post("/groups/{group_id}/messages")
+def send_group_message(group_id: int) -> None:
+    """REQ-010: send a group message; implemented in Week 8."""
+    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
