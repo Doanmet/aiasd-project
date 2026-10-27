@@ -12,6 +12,6 @@
   ],
   "week": 6,
   "members": [
-    { "student_id": "", "role": "attacker", "tried": "", "happened": "", "accepted": null, "why": "" }
+    { "student_id": "220504534", "role": "attacker", "tried": "My friend try to enter the code wrongly after entering the e-mail in login screen. And he tried to create a discussion without Post title", "happened": "My friend try to enter the code wrongly after entering the e-mail. My program didnt let him in and after 3 try it did'nt let him to try more for 15 min.401 Unauthorized for wrong code and 429 Too Many Requests after 3 try. And it returned the proper HTTP status numbers. For discussion my site didnt let him open a new discussion without a title and give the -Lütfen bu alanı doldurun. When he tries to enter a title with only spaces he gets 422 Unprocessable Content error.- error.", "accepted": null , "why": "" }
   ]
 }
