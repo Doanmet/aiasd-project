@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create a Post | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-002, REQ-006 -->
+<main class="phone">
+  <header class="brand">
+    <a class="brand-name" href="/web/create-post.html">WikiCampus</a>
+    <button id="logout" class="button secondary" type="button">Log out</button>
+  </header>
+
+  <h1>Create a discussion</h1>
+  <p class="muted">Ask a question or share something useful with other students.</p>
+
+  <form id="post-form">
+    <label for="title">Post title</label>
+    <input id="title" name="title" required maxlength="100"
+           placeholder="What would you like to discuss?">
+
+    <label for="category">Category</label>
+    <select id="category" name="category" required>
+      <option value="">Choose a category</option>
+      <option>Computer Science</option>
+      <option>Study Resources</option>
+      <option>Internships</option>
+      <option>Campus Life</option>
+    </select>
+
+    <label for="content">Your post</label>
+    <textarea id="content" name="content" required rows="6"
+              placeholder="Write your question or discussion..."></textarea>
+
+    <button class="button" type="submit">Create post</button>
+  </form>
+  <p id="message" class="error" role="status" aria-live="polite"></p>
+
+  <section>
+    <div class="section-heading">
+      <h2>Discussion list</h2>
+    </div>
+    <div id="post-list" aria-live="polite"></div>
+  </section>
+</main>
+<script>
+  const token = sessionStorage.getItem("token");
+  if (!token) location.replace("/web/login.html");
+
+  const form = document.querySelector("#post-form");
+  const message = document.querySelector("#message");
+  const postList = document.querySelector("#post-list");
+
+  function detailText(data, fallback) {
+    if (typeof data.detail === "string") return data.detail;
+    if (Array.isArray(data.detail)) return data.detail.map((item) => item.msg).join(" ");
+    return fallback;
+  }
+
+  async function api(method, path, body) {
+    const options = {
+      method,
+      headers: { Authorization: "Bearer " + token }
+    };
+    if (body !== undefined) {
+      options.headers["Content-Type"] = "application/json";
+      options.body = JSON.stringify(body);
+    }
+
+    const response = await fetch(path, options);
+    const data = await response.json().catch(() => ({}));
+    if (response.status === 401) {
+      sessionStorage.removeItem("token");
+      location.replace("/web/login.html");
+    }
+    return { status: response.status, data };
+  }
+
+  async function loadPosts() {
+    const { status, data } = await api("GET", "/posts");
+    if (status !== 200) {
+      message.textContent = detailText(data, "The discussion list could not be loaded.");
+      return;
+    }
+
+    postList.replaceChildren();
+    for (const post of data.items) {
+      const card = document.createElement("article");
+      card.className = "card";
+
+      const category = document.createElement("span");
+      category.className = "tag";
+      category.textContent = post.category;
+
+      const title = document.createElement("h3");
+      title.textContent = post.title;
+
+      const content = document.createElement("p");
+      content.className = "muted";
+      content.textContent = post.content;
+
+      card.append(category, title, content);
+      postList.append(card);
+    }
+
+    if (data.items.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "No discussions yet. Create the first one.";
+      postList.append(empty);
+    }
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "";
+
+    const body = Object.fromEntries(new FormData(form).entries());
+    const { status, data } = await api("POST", "/posts", body);
+    if (status === 201) {
+      message.textContent = "Post created.";
+      form.reset();
+      await loadPosts();
+    } else {
+      message.textContent = detailText(data, "The post could not be created.");
+    }
+  });
+
+  document.querySelector("#logout").addEventListener("click", () => {
+    sessionStorage.removeItem("token");
+    location.href = "/web/login.html";
+  });
+
+  loadPosts();
+</script>
+</body>
+</html>

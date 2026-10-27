@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-001, REQ-006 -->
+<main class="phone">
+  <h1>WikiCampus</h1>
+  <p>Log in with your e-mail address. We send you a four-digit code; there is no password.</p>
+
+  <form id="email-form">
+    <label for="email">E-mail address</label>
+    <input id="email" name="email" type="email" required placeholder="deniz@example.com">
+    <button class="button" type="submit">Send code</button>
+  </form>
+
+  <section id="code-step" class="hidden">
+    <p id="sent-message" class="note"></p>
+    <form id="code-form">
+      <label for="code">Code</label>
+      <input id="code" name="code" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required>
+      <button class="button" type="submit">Log in</button>
+    </form>
+    <button id="new-code" class="button secondary" type="button">Send a new code</button>
+  </section>
+
+  <p id="message" class="error" role="status" aria-live="polite"></p>
+</main>
+<script>
+  const emailForm = document.querySelector("#email-form");
+  const codeStep = document.querySelector("#code-step");
+  const codeForm = document.querySelector("#code-form");
+  const message = document.querySelector("#message");
+  let email = "";
+
+  if (sessionStorage.getItem("token")) {
+    location.replace("/web/create-post.html");
+  }
+
+  function detailText(data, fallback) {
+    if (typeof data.detail === "string") return data.detail;
+    if (Array.isArray(data.detail)) return data.detail.map((item) => item.msg).join(" ");
+    return fallback;
+  }
+
+  emailForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "";
+    email = document.querySelector("#email").value.trim();
+
+    try {
+      const response = await fetch("/auth/code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        message.textContent = detailText(data, "The code could not be sent.");
+        return;
+      }
+
+      document.querySelector("#sent-message").textContent =
+        "A four-digit code was sent to " + email + ".";
+      emailForm.classList.add("hidden");
+      codeStep.classList.remove("hidden");
+      document.querySelector("#code").focus();
+    } catch {
+      message.textContent = "The server could not be reached.";
+    }
+  });
+
+  codeForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "";
+    const code = document.querySelector("#code").value.trim();
+
+    try {
+      const response = await fetch("/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, code })
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.status === 401) {
+        message.textContent = "Wrong or expired code. Check your e-mail and try again.";
+        return;
+      }
+      if (!response.ok) {
+        message.textContent = detailText(data, "Log in failed.");
+        return;
+      }
+      if (!data.token) {
+        message.textContent = "The server did not return a login token.";
+        return;
+      }
+
+      sessionStorage.setItem("token", data.token);
+      location.href = "/web/create-post.html";
+    } catch {
+      message.textContent = "The server could not be reached.";
+    }
+  });
+
+  document.querySelector("#new-code").addEventListener("click", () => {
+    codeStep.classList.add("hidden");
+    emailForm.classList.remove("hidden");
+    document.querySelector("#code").value = "";
+    message.textContent = "";
+  });
+</script>
+</body>
+</html>
