@@ -1,48 +1,21 @@
 """FastAPI skeleton for WikiCampus; feature routes are built in later weeks."""
 
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+
+from server import course_login, posts
 
 app = FastAPI(title="WikiCampus")
-
-
-class EmailCodeRequest(BaseModel):
-    email: str
-
-
-class LoginRequest(BaseModel):
-    email: str
-    code: str
-
-
-class PostRequest(BaseModel):
-    title: str
-    category: str
-    content: str
+app.include_router(course_login.router)
+app.include_router(posts.router)
 
 
 @app.get("/health")
 def health() -> dict:
     """Technical check that the server is running."""
     return {"status": "ok"}
-
-
-@app.post("/auth/code")
-def request_login_code(body: EmailCodeRequest) -> None:
-    """REQ-001: send a one-time email code; implementation comes in Week 6."""
-    raise HTTPException(status_code=501, detail="Not built yet: Week 6")
-
-
-@app.post("/auth/login")
-def login(body: LoginRequest) -> None:
-    """REQ-001: verify the one-time code; implementation comes in Week 6."""
-    raise HTTPException(status_code=501, detail="Not built yet: Week 6")
-
-
-@app.post("/posts")
-def create_post(body: PostRequest) -> None:
-    """REQ-002: create a categorized course discussion; implemented in Week 8."""
-    raise HTTPException(status_code=501, detail="Not built yet: Week 8")
 
 
 @app.get("/posts/{post_id}")
@@ -91,3 +64,8 @@ def list_group_messages(group_id: int) -> None:
 def send_group_message(group_id: int) -> None:
     """REQ-010: send a group message; implemented in Week 8."""
     raise HTTPException(status_code=501, detail="Not built yet: Week 8")
+
+
+WEB = Path(__file__).resolve().parent.parent / "web"
+if WEB.is_dir():
+    app.mount("/web", StaticFiles(directory=WEB, html=True), name="web")
