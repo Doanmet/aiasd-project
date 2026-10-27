@@ -12,7 +12,7 @@
   "email_field": "email",
   "code_field": "code",
   "token_field": "token",
-  "test_email_domain": "MehmetBoluk123.com",
+  "test_email_domain": "mehmetboluk123.com",
   "email_must_end_with": "",
   "app_name": "WikiCampus"
 }

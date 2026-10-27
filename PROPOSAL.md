@@ -73,3 +73,4 @@ This is a student project, and I do not plan to charge students. A university co
 - 2026-10-24 — REQ-009 and REQ-010: added course groups and group chat to the scope, requirements, and design. Updated the proposal to keep the first release small.
 - 2026-10-24 — REQ-009: chose Samsung Galaxy Store because it has no sign-up or annual publishing fee.
 - 2026-10-27 — In week 5 api.md I added new API feature to match the week 6 assignment. | GET | /auth/me | — | 200 {"email":"student@example.com"} | 401 no or invalid token | REQ-001 |
+- 2026-10-27 — New API future. Post-list API row.
