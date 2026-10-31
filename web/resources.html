@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Resources | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-004, REQ-007, REQ-006 -->
+<main class="phone">
+  <header class="brand">
+    <a class="brand-name" href="/web/create-post.html">WikiCampus</a>
+    <a href="/web/groups.html">Study groups</a>
+  </header>
+  <h1>Study resources</h1>
+  <p class="muted">Find shared notes and study materials.</p>
+  <form id="search-form">
+    <label for="query">Search by keyword</label>
+    <input id="query" name="q" type="search" required placeholder="Try Java">
+    <button class="button" type="submit">Search</button>
+  </form>
+  <p id="message" class="error" role="status" aria-live="polite"></p>
+  <section id="results" aria-live="polite"></section>
+  <nav class="tabs" aria-label="Main navigation">
+    <a href="/web/create-post.html">Discussions</a>
+    <a href="/web/resources.html" aria-current="page">Resources</a>
+    <a href="/web/groups.html">Groups</a>
+  </nav>
+</main>
+<script>
+  const token = sessionStorage.getItem("token");
+  if (!token) location.replace("/web/login.html");
+  const form = document.querySelector("#search-form");
+  const message = document.querySelector("#message");
+  const results = document.querySelector("#results");
+
+  function showItems(items) {
+    results.replaceChildren();
+    if (!items.length) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "No matching resources found. Try another search.";
+      results.append(empty);
+      return;
+    }
+    for (const item of items) {
+      const card = document.createElement("article");
+      card.className = "card";
+      const subject = document.createElement("span");
+      subject.className = "tag";
+      subject.textContent = item.subject;
+      const title = document.createElement("h2");
+      title.textContent = item.title;
+      const description = document.createElement("p");
+      description.className = "muted";
+      description.textContent = item.description;
+      card.append(subject, title, description);
+      results.append(card);
+    }
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "";
+    const query = new FormData(form).get("q").trim();
+    try {
+      const response = await fetch("/resources?q=" + encodeURIComponent(query), {
+        headers: { Authorization: "Bearer " + token }
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        sessionStorage.removeItem("token");
+        location.replace("/web/login.html");
+        return;
+      }
+      if (!response.ok) {
+        message.textContent = typeof data.detail === "string" ? data.detail : "Search failed.";
+        return;
+      }
+      showItems(data.items);
+    } catch {
+      message.textContent = "The server could not be reached.";
+    }
+  });
+  const initialQuery = new URLSearchParams(location.search).get("q");
+  if (initialQuery) {
+    document.querySelector("#query").value = initialQuery;
+    form.requestSubmit();
+  }
+</script>
+</body>
+</html>

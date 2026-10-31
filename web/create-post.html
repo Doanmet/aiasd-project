@@ -13,6 +13,11 @@
     <a class="brand-name" href="/web/create-post.html">WikiCampus</a>
     <button id="logout" class="button secondary" type="button">Log out</button>
   </header>
+  <nav class="tabs" aria-label="Main navigation">
+    <a href="/web/create-post.html" aria-current="page">Discussions</a>
+    <a href="/web/resources.html">Resources</a>
+    <a href="/web/groups.html">Groups</a>
+  </nav>
 
   <h1>Create a discussion</h1>
   <p class="muted">Ask a question or share something useful with other students.</p>
@@ -96,7 +101,10 @@
       category.textContent = post.category;
 
       const title = document.createElement("h3");
-      title.textContent = post.title;
+      const link = document.createElement("a");
+      link.href = "/web/post.html?id=" + encodeURIComponent(post.id);
+      link.textContent = post.title;
+      title.append(link);
 
       const content = document.createElement("p");
       content.className = "muted";

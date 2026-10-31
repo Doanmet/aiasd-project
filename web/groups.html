@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Groups | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-009, REQ-006 -->
+<main class="phone">
+  <header class="brand">
+    <a class="brand-name" href="/web/create-post.html">WikiCampus</a>
+    <a href="/web/resources.html">Resources</a>
+  </header>
+  <h1>Study groups</h1>
+  <p class="muted">Create or join a group for one of your courses.</p>
+  <form id="group-form">
+    <label for="name">Group name</label>
+    <input id="name" name="name" required maxlength="100" placeholder="Database Systems study group">
+    <label for="course">Course</label>
+    <input id="course" name="course" required maxlength="100" placeholder="DB201">
+    <button class="button" type="submit">Create group</button>
+  </form>
+  <p id="message" class="error" role="status" aria-live="polite"></p>
+  <section>
+    <h2>Available groups</h2>
+    <div id="group-list" aria-live="polite"></div>
+  </section>
+  <nav class="tabs" aria-label="Main navigation">
+    <a href="/web/create-post.html">Discussions</a>
+    <a href="/web/resources.html">Resources</a>
+    <a href="/web/groups.html" aria-current="page">Groups</a>
+  </nav>
+</main>
+<script>
+  const token = sessionStorage.getItem("token");
+  if (!token) location.replace("/web/login.html");
+  const form = document.querySelector("#group-form");
+  const message = document.querySelector("#message");
+  const groupList = document.querySelector("#group-list");
+
+  async function api(path, method = "GET", body) {
+    const options = { method, headers: { Authorization: "Bearer " + token } };
+    if (body !== undefined) {
+      options.headers["Content-Type"] = "application/json";
+      options.body = JSON.stringify(body);
+    }
+    const response = await fetch(path, options);
+    const data = await response.json().catch(() => ({}));
+    if (response.status === 401) {
+      sessionStorage.removeItem("token");
+      location.replace("/web/login.html");
+    }
+    return { response, data };
+  }
+
+  async function loadGroups() {
+    const { response, data } = await api("/groups");
+    if (!response.ok) {
+      message.textContent = "The group list could not be loaded.";
+      return;
+    }
+    groupList.replaceChildren();
+    if (!data.items.length) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "No study groups yet. Create the first one.";
+      groupList.append(empty);
+      return;
+    }
+    for (const group of data.items) {
+      const card = document.createElement("article");
+      card.className = "card";
+      const title = document.createElement("h3");
+      title.textContent = group.name;
+      const course = document.createElement("p");
+      course.className = "muted";
+      course.textContent = group.course;
+      const button = document.createElement("button");
+      button.className = "button secondary";
+      button.type = "button";
+      button.textContent = "Join group";
+      button.addEventListener("click", async () => {
+        message.textContent = "";
+        const { response: joined } = await api("/groups/" + group.id + "/members", "POST");
+        if (joined.status === 200) message.textContent = "You joined the group.";
+        else if (joined.status === 409) message.textContent = "You are already a member of this group.";
+        else message.textContent = "The group could not be joined.";
+      });
+      card.append(title, course, button);
+      groupList.append(card);
+    }
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "";
+    const body = Object.fromEntries(new FormData(form).entries());
+    try {
+      const { response, data } = await api("/groups", "POST", body);
+      if (response.status === 201) {
+        message.textContent = "Group created.";
+        form.reset();
+        await loadGroups();
+      } else {
+        message.textContent = typeof data.detail === "string" ? data.detail : "The group could not be created.";
+      }
+    } catch {
+      message.textContent = "The server could not be reached.";
+    }
+  });
+  loadGroups();
+</script>
+</body>
+</html>

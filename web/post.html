@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discussion | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-003, REQ-006 -->
+<main class="phone">
+  <a href="/web/create-post.html">← Back to discussions</a>
+  <p id="message" class="error" role="status" aria-live="polite"></p>
+  <article id="discussion" class="card hidden">
+    <span id="category" class="tag"></span>
+    <h1 id="title"></h1>
+    <p id="content"></p>
+  </article>
+  <section>
+    <h2>Replies</h2>
+    <div id="reply-list" aria-live="polite"></div>
+  </section>
+  <nav class="tabs" aria-label="Main navigation">
+    <a href="/web/create-post.html">Discussions</a>
+    <a href="/web/resources.html">Resources</a>
+    <a href="/web/groups.html">Groups</a>
+  </nav>
+</main>
+<script>
+  const token = sessionStorage.getItem("token");
+  if (!token) location.replace("/web/login.html");
+  const id = new URLSearchParams(location.search).get("id");
+  const message = document.querySelector("#message");
+
+  async function loadDiscussion() {
+    if (!id || !/^\d+$/.test(id)) {
+      message.textContent = "Discussion not found.";
+      return;
+    }
+    try {
+      const response = await fetch("/posts/" + encodeURIComponent(id), {
+        headers: { Authorization: "Bearer " + token }
+      });
+      const post = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        sessionStorage.removeItem("token");
+        location.replace("/web/login.html");
+        return;
+      }
+      if (response.status === 404) {
+        message.textContent = "Discussion not found.";
+        return;
+      }
+      if (!response.ok) {
+        message.textContent = "The discussion could not be loaded.";
+        return;
+      }
+      document.querySelector("#category").textContent = post.category;
+      document.querySelector("#title").textContent = post.title;
+      document.querySelector("#content").textContent = post.content;
+      document.querySelector("#discussion").classList.remove("hidden");
+      const replies = document.querySelector("#reply-list");
+      if (!post.replies.length) {
+        const empty = document.createElement("p");
+        empty.className = "muted";
+        empty.textContent = "No replies yet.";
+        replies.append(empty);
+      }
+      for (const reply of post.replies) {
+        const card = document.createElement("article");
+        card.className = "card";
+        const text = document.createElement("p");
+        text.textContent = reply.text;
+        card.append(text);
+        replies.append(card);
+      }
+    } catch {
+      message.textContent = "The server could not be reached.";
+    }
+  }
+  loadDiscussion();
+</script>
+</body>
+</html>
