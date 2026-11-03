@@ -85,6 +85,12 @@ export default function DiscussionsScreen() {
             </Pressable>
           </View>
           <Text style={styles.subtitle}>Ask a question or share something useful with other students.</Text>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => router.push('/resources')}
+            style={styles.resourceShortcut}>
+            <Text style={styles.resourceShortcutText}>Search study resources</Text>
+          </Pressable>
 
           <View style={styles.card}>
             <Text style={styles.label}>Post title</Text>
@@ -173,6 +179,8 @@ const styles = StyleSheet.create({
   brand: { color: '#173D79', fontSize: 17, fontWeight: '800' },
   title: { color: '#202938', fontSize: 25, fontWeight: '700', marginTop: 6 },
   subtitle: { color: '#667085', fontSize: 15, lineHeight: 22 },
+  resourceShortcut: { alignSelf: 'flex-start', borderColor: '#2457A7', borderRadius: 9, borderWidth: 1, paddingHorizontal: 14, paddingVertical: 10 },
+  resourceShortcutText: { color: '#2457A7', fontSize: 14, fontWeight: '600' },
   link: { color: '#2457A7', fontSize: 14, fontWeight: '600', padding: 8 },
   card: { backgroundColor: '#FFFFFF', borderColor: '#DCE3ED', borderRadius: 14, borderWidth: 1, gap: 12, padding: 16 },
   label: { color: '#202938', fontSize: 14, fontWeight: '600', marginTop: 4 },
