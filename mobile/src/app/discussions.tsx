@@ -146,11 +146,17 @@ export default function DiscussionsScreen() {
             <Text style={styles.empty}>No discussions yet. Create the first one.</Text>
           ) : (
             posts.map((post) => (
-              <View key={post.id} style={styles.postCard}>
+              <Pressable
+                accessibilityLabel={'Open discussion: ' + post.title}
+                accessibilityRole="button"
+                key={post.id}
+                onPress={() => router.push({ pathname: '/posts/[id]', params: { id: String(post.id) } })}
+                style={({ pressed }) => [styles.postCard, pressed && styles.postPressed]}>
                 <Text style={styles.tag}>{post.category}</Text>
                 <Text style={styles.postTitle}>{post.title}</Text>
                 <Text style={styles.postContent}>{post.content}</Text>
-              </View>
+                <Text style={styles.openHint}>Tap to read replies</Text>
+              </Pressable>
             ))
           )}
         </ScrollView>
@@ -189,4 +195,6 @@ const styles = StyleSheet.create({
   tag: { alignSelf: 'flex-start', backgroundColor: '#E8EFFF', borderRadius: 14, color: '#173D79', fontSize: 12, overflow: 'hidden', paddingHorizontal: 9, paddingVertical: 5 },
   postTitle: { color: '#202938', fontSize: 17, fontWeight: '700' },
   postContent: { color: '#667085', fontSize: 14, lineHeight: 21 },
+  openHint: { color: '#2457A7', fontSize: 13, fontWeight: '600' },
+  postPressed: { opacity: 0.75 },
 });
