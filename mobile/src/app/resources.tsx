@@ -98,7 +98,7 @@ export default function ResourcesScreen() {
 
         {!!message && <Text accessibilityRole="alert" style={styles.message}>{message}</Text>}
         {searched && items.length === 0 && (
-          <Text style={styles.empty}>No matching resources found. Try another search.</Text>
+          <Text accessibilityRole="alert" style={styles.empty}>No matching resources found. Try another search.</Text>
         )}
         {items.map((item) => (
           <View key={item.id} style={styles.resultCard}>
