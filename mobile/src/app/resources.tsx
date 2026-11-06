@@ -66,7 +66,7 @@ export default function ResourcesScreen() {
         </Pressable>
 
         <Text style={styles.brand}>WikiCampus</Text>
-        <Text style={styles.heading}>Study resources</Text>
+        <Text accessibilityRole="header" style={styles.heading}>Study resources</Text>
         <Text style={styles.subtitle}>Find shared notes and study materials.</Text>
         <Pressable
           accessibilityRole="button"
