@@ -139,7 +139,7 @@ export default function DiscussionsScreen() {
               style={({ pressed }) => [styles.button, busy && styles.disabled, pressed && styles.pressed]}>
               {busy ? <ActivityIndicator color="#FFFFFF" /> : <Text style={styles.buttonText}>Create post</Text>}
             </Pressable>
-            {!!message && <Text accessibilityRole="alert" style={styles.message}>{message}</Text>}
+            {!!message && <Text accessibilityRole="alert" style={[styles.message, message === 'Post created.' && styles.successMessage]}>{message}</Text>}
           </View>
 
           <View style={styles.sectionHeading}>
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
   pressed: { backgroundColor: '#173D79' },
   buttonText: { color: '#FFFFFF', fontSize: 15, fontWeight: '700' },
   message: { color: '#B42318', fontSize: 14, lineHeight: 20 },
+  successMessage: { color: '#067647' },
   sectionHeading: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between', marginTop: 4 },
   sectionTitle: { color: '#202938', fontSize: 19, fontWeight: '700' },
   empty: { color: '#667085', fontSize: 15, paddingVertical: 8 },
