@@ -67,10 +67,11 @@ This is a student project, and I do not plan to charge students. A university co
 ### 12. Technical risks and how you will manage them (about 600 characters)
 1. Email delivery may take longer to set up than the login screens. I will test the email service early and keep a development option for the prototype.
 2. Chat and file uploads can grow beyond a short course project. I will keep the first version to text messages and resource links, with no large file uploads.
-3. I chose Samsung Galaxy Store because Samsung says there is no sign-up or yearly publishing fee. I still need to apply for commercial seller status before I can distribute the app. I have not applied yet, so I will check the requirements early and keep the web client ready for demos.
+3. I chose Huawei AppGallery as the store for the first release. I have not registered as a Huawei developer yet, so I will complete the registration and verify the requirements before distribution. I will keep the web client ready for demos.
 
 ## Change log
 - 2026-10-24 — REQ-009 and REQ-010: added course groups and group chat to the scope, requirements, and design. Updated the proposal to keep the first release small.
 - 2026-10-24 — REQ-009: chose Samsung Galaxy Store because it has no sign-up or annual publishing fee.
 - 2026-10-27 — In week 5 api.md I added new API feature to match the week 6 assignment. | GET | /auth/me | — | 200 {"email":"student@example.com"} | 401 no or invalid token | REQ-001 |
 - 2026-10-27 — New API future. Post-list API row.
+- 2026-11-7 — aplied for Huwai AppGalery.

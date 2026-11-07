@@ -35,6 +35,14 @@
       "round": 1,
       "result": "pass",
       "note": "The study group was created and joined successfully."
+    },
+    {
+      "tc": "TC-003-01",
+      "tester": "220504015",
+      "device": "mi note 17 t",
+      "round": 2,
+      "result": "pass",
+      "note": "discussion list opened as expected. the title and replies are clearly visible."
     }
   ]
 }
