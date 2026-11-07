@@ -136,7 +136,7 @@ export default function GroupsScreen() {
           </Pressable>
         </View>
 
-        {!!message && <Text accessibilityRole="alert" style={styles.message}>{message}</Text>}
+        {!!message && <Text accessibilityRole="alert" style={[styles.message, (message === 'Group created. You are a member.' || message === 'You joined the group.' || message === 'You are already a member of this group.') && styles.successMessage]}>{message}</Text>}
 
         <View style={styles.sectionHeading}>
           <Text style={styles.sectionTitle}>Available groups</Text>
@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
   pressed: { backgroundColor: '#173D79' },
   buttonText: { color: '#FFFFFF', fontSize: 15, fontWeight: '700' },
   message: { color: '#B42318', fontSize: 14, lineHeight: 20 },
+  successMessage: { color: '#067647' },
   sectionHeading: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' },
   sectionTitle: { color: '#202938', fontSize: 19, fontWeight: '700' },
   refresh: { color: '#2457A7', fontSize: 14, fontWeight: '600', padding: 8 },
