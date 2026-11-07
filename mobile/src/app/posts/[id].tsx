@@ -71,7 +71,7 @@ export default function DiscussionDetailScreen() {
         </Pressable>
 
         <Text style={styles.brand}>WikiCampus</Text>
-        <Text style={styles.heading}>Discussion</Text>
+        <Text accessibilityRole="header" style={styles.heading}>Discussion</Text>
 
         {loading ? (
           <ActivityIndicator color="#2457A7" size="large" style={styles.loader} />
