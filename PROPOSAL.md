@@ -75,8 +75,4 @@ This is a student project, and I do not plan to charge students. A university co
 - 2026-10-27 — In week 5 api.md I added new API feature to match the week 6 assignment. | GET | /auth/me | — | 200 {"email":"student@example.com"} | 401 no or invalid token | REQ-001 |
 - 2026-10-27 — New API future. Post-list API row.
 - 2026-11-7 — aplied for Huwai AppGalery.
-- 2026-11-17 — Additions to 
-  requirements.json REQ-012 (must),
-  week04/test_cases.json TC-012-01,TC-013-01 both manuel 
-  and
-  week05/api.md | POST | /chat | for REQ-012 files to create chatbot.
+- 2026-11-17 — I added a WikiCampus guide chatbot to help students learn the app. This adds REQ-012 (must), TC-012-01 and TC-013-01 (manual), plus the POST /chat row in week05/api.md; the updated files are week02/requirements.json, week04/test_cases.json, and week05/api.md.
