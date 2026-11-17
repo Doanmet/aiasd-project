@@ -18,4 +18,4 @@ Feature routes have matching routes in server/main.py. Until the feature is buil
 | POST | /groups/{group_id}/messages | {"text":"I found a useful review sheet."} | 201 {"id":1,"text":"I found a useful review sheet."} | 401 not signed in · 403 not a group member · 404 group does not exist · 422 text is empty | REQ-010 |
 | GET | /auth/me | — | 200 {"email":"student@example.com"} | 401 no or invalid token | REQ-001 |
 | GET | /posts | — | 200 {"items":[{"id":1,"title":"Database Systems Exam","category":"courses","content":"Does anyone have revision notes?"}]} | 401 not signed in | REQ-002 |
-| POST | /chat | {"message":"How do I create a discussion topic?"} (token required)  | 200 {"answer":"..."}  | | REQ-012 |
+| POST | /chat | {"message":"How do I create a discussion topic?"} (token required)  | 200 {"answer":"..."}  | 401 no or invalid token · 429  reached daily message limit · 503 LLM API unavailable or timed out  | REQ-012 |
