@@ -76,7 +76,7 @@ This is a student project, and I do not plan to charge students. A university co
 - 2026-10-27 — New API future. Post-list API row.
 - 2026-11-7 — aplied for Huwai AppGalery.
 - 2026-11-17 — Additions to 
-  requirements.json REQ-012,
-  test_cases.jsonn TC-012-01,TC-013-01 
+  requirements.json REQ-012 (must),
+  week04/test_cases.json TC-012-01,TC-013-01 both manuel 
   and
-  api.md | POST | /chat | for REQ-012 files to create chatbot.
+  week05/api.md | POST | /chat | for REQ-012 files to create chatbot.
