@@ -5,9 +5,10 @@ from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 
-from server import course_login, groups, posts, resources
+from server import chat, course_login, groups, posts, resources
 
 app = FastAPI(title="WikiCampus")
+app.include_router(chat.router)
 app.include_router(course_login.router)
 app.include_router(posts.router)
 app.include_router(resources.router)
