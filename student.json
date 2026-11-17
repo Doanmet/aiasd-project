@@ -3,5 +3,14 @@
   "first_name": "Ahmet",
   "last_name": "Doğan",
   "nickname": "Doanmet",
-  "section": "en"
+  "section": "en",
+  "computers": [
+    {
+      "hostname": "DESKTOP-9NB98T8",
+      "git_email": "ahmet.doanmet@gmail.com",
+      "owner": "220504026",
+      "also_used_by": "",
+      "why": ""
+    }
+  ]
 }
