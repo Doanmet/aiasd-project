@@ -91,6 +91,12 @@ export default function DiscussionsScreen() {
             style={styles.resourceShortcut}>
             <Text style={styles.resourceShortcutText}>Search study resources</Text>
           </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => router.push('/chat')}
+            style={styles.resourceShortcut}>
+            <Text style={styles.resourceShortcutText}>Ask the WikiCampus guide</Text>
+          </Pressable>
 
           <View style={styles.card}>
             <Text style={styles.label}>Post title</Text>
