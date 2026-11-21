@@ -11,5 +11,28 @@
     "You may delete this block once you have read it; the checker ignores it."
   ],
   "store": "Huawei AppGallery",
-  "S1": { "date": "2026-11-07", "developer_name": "Doanmet", "status": "applied", "evidence": "week04/week04store_s1.png" }
+  "S1": { "date": "2026-11-07", "developer_name": "Doanmet", "status": "applied", "evidence": "week04/week04store_s1.png" },
+  "S3": {
+    "date": "",
+    "track": "",
+    "version": "",
+    "classmate_testers": [
+      "220504534",
+      "230504610",
+      "230504639",
+      "230504510",
+      "220504010",
+      "230504661"
+    ],
+    "other_testers": [
+      "Mehmet Doğan",
+      "Ayşe Doğan",
+      "Emir Mutlu",
+      "Duran Doğan",
+      "Faruk Yeşilorman",
+      "Ömerfaruk Türkhan"
+    ],
+    "privacy_url": "https://github.com/Doanmet/aiasd-project/blob/main/PRIVACY.md",
+    "evidence": ""
+  }
 }
