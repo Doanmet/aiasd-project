@@ -43,6 +43,14 @@
       "round": 2,
       "result": "pass",
       "note": "discussion list opened as expected. the title and replies are clearly visible."
+    },
+    {
+      "tc": "TC-012-01",
+      "tester": "220504026",
+      "device": "mi note 17 t",
+      "round": 2,
+      "result": "pass",
+      "note": "chat bot kindly refused to reply to the questions which is irrelevent to wikicampus."
     }
   ]
 }

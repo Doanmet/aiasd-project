@@ -15,7 +15,7 @@ When students prepare for an exam, useful notes and explanations can be spread a
 A student signs in with a code sent by email, searches shared study materials, and opens course discussions to read replies or write a post. Students can view study interests on profiles and create or join a course group to chat with classmates. The web client is useful for browsing and writing, while the mobile client keeps the same main flow available between classes. WikiCampus does not store grades, replace the university learning system, or offer paid tutoring.
 
 ### 5. How it works (about 600 characters + one diagram)
-Students use the mobile app and web client to browse resources, discuss courses, manage study groups, and ask the WikiCampus guide about using the app. The server checks login codes, stores posts and groups in SQLite, and sends guide questions to the OpenAI API. The OpenAI key stays on the server. An email service sends the one-time code, and a public app store distributes the mobile client.
+Students use the mobile app and web client to browse resources, discuss courses, manage study groups, and ask the WikiCampus guide about using the app. The server checks login codes, stores posts and groups in SQLite, and sends guide questions to the Groq API. The Groq key stays on the server. An email service sends the one-time code, and a public app store distributes the mobile client.
 
 ```mermaid
 flowchart LR
@@ -26,7 +26,7 @@ flowchart LR
     Mobile --> API
     API --> DB[(Database)]
   end
-  API --> LLM[OpenAI API]
+  API --> LLM[Groq API]
   API --> Mail[Email service]
   Mobile -.-> Store[App store]
 ```
@@ -79,3 +79,4 @@ This is a student project, and I do not plan to charge students. A university co
 - 2026-11-07 — Changed the selected store from Samsung Galaxy Store to Huawei AppGallery and applied for the Huawei developer account (S1).
 - 2026-11-17 — I added a WikiCampus guide chatbot to help students learn the app. This adds REQ-012 (must), TC-012-01 and TC-013-01 (manual), plus the POST /chat row in week05/api.md; the updated files are week02/requirements.json, week04/test_cases.json, and week05/api.md.
 - 2026-11-21 — CR-04: the server now keeps posts, groups, and daily chatbot counts in SQLite; the architecture now shows SQLite and the OpenAI API. Added the public privacy notice in PRIVACY.md.
+- 2026-11-21 — CR-05: changed the chatbot provider to Groq to use its free tier; affects `server/chat.py`, `server/.env.example`, `week05/DESIGN.md`, and `PRIVACY.md`.

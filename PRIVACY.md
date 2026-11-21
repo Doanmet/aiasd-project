@@ -10,7 +10,7 @@ When you sign in, WikiCampus uses your email address to send and verify a one-ti
 
 ## Chatbot and OpenAI
 
-If you use the WikiCampus guide chatbot, the text of your question is sent from the WikiCampus server to the OpenAI API to produce an answer. The app sends the question text only; it does not send your email address, login token, or stored posts and group records as chatbot context. The app does not save chatbot conversations in its database. OpenAI processes the question to provide the response under the terms and privacy practices that apply to its API service.
+If you use the WikiCampus guide chatbot, the text of your question is sent from the WikiCampus server to the Groq API to produce an answer. The app sends the question text only; it does not send your email address, login token, or stored posts and group records as chatbot context. The app does not save chatbot conversations in its database. Groq processes the question to provide the response under the terms and privacy practices that apply to its API service.
 
 ## Choices and contact
 

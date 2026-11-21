@@ -1,5 +1,6 @@
-"""REQ-012: answer questions about using WikiCampus with OpenAI."""
+"""REQ-012: answer questions about using WikiCampus with Groq."""
 
+import logging
 import os
 from datetime import date
 
@@ -12,6 +13,7 @@ from server.storage import reserve_chat_message
 
 router = APIRouter()
 DAILY_LIMIT = 10
+logger = logging.getLogger(__name__)
 
 SYSTEM_PROMPT = (
     "You are the WikiCampus app guide. Answer questions only about using the "
@@ -45,13 +47,14 @@ def chat(body: ChatRequest, user: str = Depends(current_user)) -> dict[str, str]
     """Send a WikiCampus usage question to OpenAI; the API key stays on the server."""
     api_key = os.getenv("LLM_API_KEY")
     model = os.getenv("LLM_MODEL")
+    base_url = os.getenv("LLM_API_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
     if not api_key or not model:
         raise HTTPException(status_code=503, detail="The chat service is not configured.")
 
     _reserve_message(user)
     try:
         response = requests.post(
-            "https://api.openai.com/v1/responses",
+            f"{base_url}/responses",
             headers={"Authorization": f"Bearer {api_key}"},
             json={
                 "model": model,
@@ -62,7 +65,31 @@ def chat(body: ChatRequest, user: str = Depends(current_user)) -> dict[str, str]
         )
         response.raise_for_status()
         payload = response.json()
-    except (requests.RequestException, ValueError) as error:
+    except requests.HTTPError as error:
+        status = error.response.status_code if error.response is not None else "unknown"
+        provider_code = "unknown"
+        if error.response is not None:
+            try:
+                provider_error = error.response.json().get("error", {})
+                if isinstance(provider_error, dict):
+                    provider_code = (
+                        provider_error.get("code") or provider_error.get("type") or "unknown"
+                    )
+            except ValueError:
+                pass
+        logger.warning("LLM API rejected the request: status=%s code=%s", status, provider_code)
+        raise HTTPException(
+            status_code=503,
+            detail="The LLM API is unavailable or did not return a valid answer.",
+        ) from error
+    except requests.RequestException as error:
+        logger.warning("LLM API connection failed: %s", type(error).__name__)
+        raise HTTPException(
+            status_code=503,
+            detail="The LLM API is unavailable or did not return a valid answer.",
+        ) from error
+    except ValueError as error:
+        logger.warning("LLM API response was not valid JSON")
         raise HTTPException(
             status_code=503,
             detail="The LLM API is unavailable or did not return a valid answer.",
