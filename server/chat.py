@@ -1,19 +1,17 @@
 """REQ-012: answer questions about using WikiCampus with OpenAI."""
 
-from datetime import date
 import os
-import threading
+from datetime import date
 
 import requests
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, field_validator
 
 from server.course_login import current_user
+from server.storage import reserve_chat_message
 
 router = APIRouter()
 DAILY_LIMIT = 10
-_requests_today: dict[tuple[str, date], int] = {}
-_request_lock = threading.Lock()
 
 SYSTEM_PROMPT = (
     "You are the WikiCampus app guide. Answer questions only about using the "
@@ -36,16 +34,10 @@ class ChatRequest(BaseModel):
         return cleaned
 
 
-def _reserve_message(user: str) -> tuple[str, date]:
+def _reserve_message(user: str) -> None:
     today = date.today()
-    key = (user.lower(), today)
-    with _request_lock:
-        for old_key in [entry for entry in _requests_today if entry[1] != today]:
-            del _requests_today[old_key]
-        if _requests_today.get(key, 0) >= DAILY_LIMIT:
-            raise HTTPException(status_code=429, detail="Daily chat limit reached (10 messages).")
-        _requests_today[key] = _requests_today.get(key, 0) + 1
-    return key
+    if not reserve_chat_message(user, today.isoformat(), DAILY_LIMIT):
+        raise HTTPException(status_code=429, detail="Daily chat limit reached (10 messages).")
 
 
 @router.post("/chat")

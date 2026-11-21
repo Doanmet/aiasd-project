@@ -4,9 +4,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, field_validator
 
 from server.course_login import current_user
+from server.storage import load_state, save_state
 
 router = APIRouter()
-groups: list[dict] = []
+groups: list[dict] = load_state("groups", [])
 
 
 class GroupRequest(BaseModel):
@@ -37,6 +38,7 @@ def create_group(body: GroupRequest, user: str = Depends(current_user)) -> dict:
         "members": [user],
     }
     groups.append(group)
+    save_state("groups", groups)
     return {key: group[key] for key in ("id", "name", "course")}
 
 
@@ -48,4 +50,5 @@ def join_group(group_id: int, user: str = Depends(current_user)) -> dict[str, bo
     if user in group["members"]:
         raise HTTPException(status_code=409, detail="Already a member of this group.")
     group["members"].append(user)
+    save_state("groups", groups)
     return {"joined": True}

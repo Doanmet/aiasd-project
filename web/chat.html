@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WikiCampus Guide | WikiCampus</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- serves: REQ-012, REQ-006 -->
+<main class="phone">
+  <header class="brand">
+    <a class="brand-name" href="/web/create-post.html">WikiCampus</a>
+    <button id="logout" class="button secondary" type="button">Log out</button>
+  </header>
+  <nav class="tabs" aria-label="Main navigation">
+    <a href="/web/create-post.html">Discussions</a>
+    <a href="/web/resources.html">Resources</a>
+    <a href="/web/groups.html">Groups</a>
+    <a href="/web/chat.html" aria-current="page">Guide</a>
+  </nav>
+
+  <h1>WikiCampus guide</h1>
+  <p class="muted">Ask a question about using WikiCampus. Your question is sent to OpenAI for an answer.</p>
+  <section id="conversation" aria-live="polite" aria-label="Chat conversation"></section>
+  <p id="message" class="error" role="alert" aria-live="assertive"></p>
+  <form id="chat-form">
+    <label for="question">Your question</label>
+    <textarea id="question" name="question" rows="4" required maxlength="2000"
+      placeholder="How do I create a discussion topic?"></textarea>
+    <button class="button" type="submit">Send</button>
+  </form>
+</main>
+<script>
+  const token = sessionStorage.getItem("token");
+  if (!token) location.replace("/web/login.html");
+  const form = document.querySelector("#chat-form");
+  const question = document.querySelector("#question");
+  const message = document.querySelector("#message");
+  const conversation = document.querySelector("#conversation");
+
+  function addMessage(label, text) {
+    const card = document.createElement("article");
+    const heading = document.createElement("strong");
+    const content = document.createElement("p");
+    heading.textContent = label;
+    content.textContent = text;
+    card.className = "card";
+    card.append(heading, content);
+    conversation.append(card);
+  }
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    message.textContent = "";
+    const text = question.value.trim();
+    if (!text) return;
+    addMessage("You", text);
+    question.value = "";
+    const button = form.querySelector("button");
+    button.disabled = true;
+    button.textContent = "Waiting for answer…";
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: "Bearer " + token },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (response.status === 401) {
+        sessionStorage.removeItem("token");
+        location.replace("/web/login.html");
+        return;
+      }
+      if (response.status === 429 || response.status === 503) {
+        message.textContent = typeof data.detail === "string" ? data.detail : "The chat service is temporarily unavailable.";
+      } else if (!response.ok || typeof data.answer !== "string" || !data.answer.trim()) {
+        message.textContent = typeof data.detail === "string" ? data.detail : "The chatbot could not answer right now.";
+      } else {
+        addMessage("AI answer", data.answer);
+      }
+    } catch {
+      message.textContent = "Could not reach the server. Check your connection.";
+    } finally {
+      button.disabled = false;
+      button.textContent = "Send";
+    }
+  });
+
+  document.querySelector("#logout").addEventListener("click", () => {
+    sessionStorage.removeItem("token");
+    location.href = "/web/login.html";
+  });
+</script>
+</body>
+</html>

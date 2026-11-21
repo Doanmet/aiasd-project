@@ -4,9 +4,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, field_validator
 
 from server.course_login import current_user
+from server.storage import load_state, save_state
 
 router = APIRouter()
-posts: list[dict] = [
+_INITIAL_POSTS: list[dict] = [
     {
         "id": 1,
         "title": "How are you preparing for the DBMS exam?",
@@ -18,6 +19,7 @@ posts: list[dict] = [
         ],
     }
 ]
+posts: list[dict] = load_state("posts", _INITIAL_POSTS)
 
 
 class PostRequest(BaseModel):
@@ -44,6 +46,7 @@ def create_post(body: PostRequest, _user: str = Depends(current_user)) -> dict[s
         "replies": [],
     }
     posts.append(post)
+    save_state("posts", posts)
     return {key: post[key] for key in ("id", "title", "category", "content")}
 
 
