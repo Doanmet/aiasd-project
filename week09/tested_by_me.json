@@ -48,7 +48,7 @@
 {
   "owner": "230504639",
   "device": "Xiaomi 17T",
-  "tcs": ["TC-004-01", "TC-004-02", "TC-05-01"],
+  "tcs": ["TC-004-01", "TC-004-02", "TC-005-01"],
   "free_use": true,
   "problems": 1,
   "note": "no problem"
