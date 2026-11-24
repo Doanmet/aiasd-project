@@ -14,12 +14,12 @@
   "nobody_listed_me": false,
   "tested": [
     {
-      "owner": "",
-      "device": "",
-      "tcs": [],
-      "free_use": false,
+      "owner": "230504026",
+      "device": "Xiaomi 17T",
+      "tcs": ["TC-001-01", "TC-004-01", "TC-009-01"],
+      "free_use": true,
       "problems": 0,
-      "note": ""
+      "note": "no problem"
     }
   ]
 }
