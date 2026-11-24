@@ -38,6 +38,17 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "61dac4cc-42e4-42e5-b59c-3ccc441b6b8f"
+      }
+    },
+    "owner": "doanmets-team"
   }
 }

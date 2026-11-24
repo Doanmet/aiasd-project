@@ -11,16 +11,143 @@
     "Type this file yourself, by hand, right after the turn. No assistant writes, translates or corrects it, not even for the grammar. Your English or Turkish is not graded. A person reads it.",
     "Add as many objects as you need, with a comma between them. You may delete this block after you read it. The checker ignores it."
   ],
-  "week": 9,
-  "runs": [
-    {
-      "tc": "",
-      "tester": "",
-      "device": "",
-      "round": 1,
-      "result": "",
-      "note": "",
-      "evidence": ""
-    }
-  ]
+  "week":  9,
+    "runs":  [
+                 {
+                     "tc":  "TC-001-01",
+                     "tester":  "220504534",
+                     "device":  "Samsung Galaxy S23 Ultra (Expo Go)",
+                     "round":  1,
+                     "result":  "pass",
+                     "note":  "app confirmed that a four-digit login code was sent",
+                     "evidence": ""
+                 },
+                 {
+                     "tc":  "TC-004-01",
+                     "tester":  "220504534",
+                     "device":  "Samsung Galaxy S23 Ultra (Expo Go)",
+                     "round":  1,
+                     "result":  "pass",
+                     "note":  "Search worked fine for 'Java resources'.",
+                     "evidence":  ""
+                 },
+                 {
+                     "tc":  "TC-009-01",
+                     "tester":  "220504534",
+                     "device":  "Samsung Galaxy S23 Ultra (Expo Go)",
+                     "round":  1,
+                     "result":  "pass",
+                     "note":  "Study group created successfully after fillig required parts.",
+                     "evidence":  ""
+                 },
+                 {
+    "tc": "TC-001-01",
+    "tester": "230504610",
+    "device": "samsung a55 (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "app confirmed that a four-digit login code was sent",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-004-01",
+    "tester": "230504610",
+    "device": "samsung a55 (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Search worked fine for 'Java resources'.",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-009-01",
+    "tester": "230504610",
+    "device": "samsung a55 (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Study group created successfully after filling required parts.",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-001-01",
+    "tester": "230504639",
+    "device": "Samsung Galaxy A73 (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "app confirmed that a four-digit login code was sent",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-004-01",
+    "tester": "230504639",
+    "device": "Samsung Galaxy A73 (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Search worked fine for 'Java resources'.",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-009-01",
+    "tester": "230504639",
+    "device": "Samsung Galaxy A73 (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Study group created successfully after filling required parts.",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-001-01",
+    "tester": "230504510",
+    "device": "Samsung s25 ultra (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "app confirmed that a four-digit login code was sent",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-004-01",
+    "tester": "230504510",
+    "device": "Samsung s25 ultra (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Search worked fine for 'Java resources'.",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-009-01",
+    "tester": "230504510",
+    "device": "Samsung s25 ultra (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Study group created successfully after filling required parts..",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-001-01",
+    "tester": "230504661",
+    "device": "TODO: actual phone model (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "app confirmed that a four-digit login code was sent",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-004-01",
+    "tester": "230504661",
+    "device": "TODO: actual phone model (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Search worked fine for 'Java resources'.",
+    "evidence": ""
+  },
+  {
+    "tc": "TC-009-01",
+    "tester": "230504661",
+    "device": "TODO: actual phone model (Expo Go)",
+    "round": 1,
+    "result": "pass",
+    "note": "Study group created successfully after filling required parts.",
+    "evidence": ""
+  }
+             ]
+
 }

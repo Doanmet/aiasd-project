@@ -1,4 +1,4 @@
-export const SERVER = 'http://192.168.1.8:8000';
+export const SERVER = 'https://crown-pub-breeds-src.trycloudflare.com';
 
 let token: string | null = null;
 
