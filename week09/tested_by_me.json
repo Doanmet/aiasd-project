@@ -27,15 +27,15 @@
   "tcs": ["TC-001-01", "TC-002-01", "TC-003-01"],
   "free_use": false,
   "problems": 0,
-  "note": "..."
+  "note": "no problem"
 },
 {
-  "owner": "230504049”",
+  "owner": "230504049",
   "device": "Xiaomi 17T",
   "tcs": ["TC-001-01", "TC-003-01", "TC-009-01"],
   "free_use": false,
   "problems": 0,
-  "note": "..."
+  "note": "no problem"
 },
 {
   "owner": "220504534",
